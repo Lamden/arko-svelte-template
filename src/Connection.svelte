@@ -1,7 +1,7 @@
 <script>
     import { onDestroy } from 'svelte';
 	import { Button, Text} from "@svelteuidev/core";
-	import WalletController from 'lamden_wallet_controller';
+	import WalletController from './lwc';
 
 	// init
 	const connectionRequest = {
@@ -10,6 +10,7 @@
 		logo: 'images/logo.png', // or whatever the location of your logo
 		contractName: 'currency', // Contract name
 		networkType: 'testnet', // other option is 'mainnet'
+		networkName: 'arko', // tell wallet which network you want to use
 	}
 	const lwc = new WalletController(connectionRequest)
 

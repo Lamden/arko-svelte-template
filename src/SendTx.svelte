@@ -1,7 +1,6 @@
 <script>
-    import { onDestroy } from 'svelte';
 	import { Button, Text} from "@svelteuidev/core";
-	import WalletController from 'lamden_wallet_controller';
+	import WalletController from './lwc';
 
 	// init
     const connectionRequest = {
@@ -10,6 +9,7 @@
 		logo: 'images/logo.png', // or whatever the location of your logo
 		contractName: 'currency', // Contract name
 		networkType: 'testnet', // other option is 'mainnet'
+        networkName: 'arko'
 	}
 	const lwc = new WalletController(connectionRequest)
 
@@ -20,6 +20,7 @@
         contractName: 'currency',
         methodName: 'balance_of',
         networkType: 'testnet',
+        networkName: 'arko',
         kwargs: {
             account: '0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345',  // account address
         },
@@ -33,10 +34,10 @@
 	}
 
     const handleTxResults = (response) => {
-        if (response.resultInfo.type === 'error') {
-            console.log(response.resultInfo.errors)
+        if (response.data.resultInfo.type === 'error') {
+            console.log(response.data.resultInfo.errors)
         }else{
-            result = response.txBlockResult.result
+            result = JSON.stringify(response.data.txBlockResult)
         } 
         loading = false
     }
