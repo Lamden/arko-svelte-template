@@ -20,7 +20,7 @@
   "dependencies": {
     "@svelteuidev/core": "^0.7.3",
     "bootstrap": "^5.2.0",
-    "lamden_wallet_controller": "^0.6.5",
+    "lamden_wallet_controller": "^0.7.0",
     "sirv-cli": "^2.0.0"
   }
 }
