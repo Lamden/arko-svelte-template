@@ -1,7 +1,7 @@
 <script>
     import { onDestroy } from 'svelte';
 	import { Button, Text} from "@svelteuidev/core";
-	import WalletController from './lwc';
+	import WalletController from 'lamden_wallet_controller';
 
 	// init
 	const connectionRequest = {
