@@ -1,6 +1,9 @@
 <script>
 	import { Button, Text} from "@svelteuidev/core";
-	import WalletController from './lwc';
+    import { JsonView } from '@zerodevx/svelte-json-view'
+
+    // Stores
+    import { lwc } from './stores/lwc'
 
 	// init
     const connectionRequest = {
@@ -11,10 +14,9 @@
 		networkType: 'testnet', // other option is 'mainnet'
         networkName: 'arko'
 	}
-	const lwc = new WalletController(connectionRequest)
 
     let loading = false
-    let result = ''
+    let result = null
 
     const txInfo = {
         contractName: 'currency',
@@ -30,20 +32,24 @@
     // send connection request
 	const getBalance = () => {
 		loading = true
-		lwc.sendTransaction(txInfo, handleTxResults) 
+		$lwc.sendTransaction(txInfo, handleTxResults) 
 	}
 
     const handleTxResults = (response) => {
         if (response.data.resultInfo.type === 'error') {
             console.log(response.data.resultInfo.errors)
         }else{
-            result = JSON.stringify(response.data.txBlockResult)
+            result = JSON.parse(JSON.stringify(response.data))
         } 
         loading = false
     }
 
 </script>
+<Button color='teal' loading={loading} on:click={getBalance}>Send Simple Tx</Button>
 
-<Text size='md' css={{ marginBottom: 10 }}>Result:</Text>
-<Text size='lg' css={{ marginBottom: 10 }} color="blue">{result}</Text>
-<Button color='teal' loading={loading} on:click={getBalance}>Send Tx</Button>
+<Text size='md' css={{ marginTop: 10, marginBottom: 10 }}>Transaction Result:</Text>
+{#if result}
+    <JsonView json={result} />
+{:else}
+{"{}"}
+{/if}
