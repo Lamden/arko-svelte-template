@@ -36,11 +36,7 @@
 	}
 
     const handleTxResults = (response) => {
-        if (response.data.resultInfo.type === 'error') {
-            console.log(response.data.resultInfo.errors)
-        }else{
-            result = JSON.parse(JSON.stringify(response.data))
-        } 
+        result = JSON.parse(JSON.stringify(response.data))
         loading = false
     }
 
